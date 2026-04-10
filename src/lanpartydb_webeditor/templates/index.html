@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% set current_page = 'index' %}
+
+{% block head %}
+<style>
+.actions {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a.action {
+  background-color: var(--color-darker);
+  border: var(--color-border) solid 1px;
+  border-radius: 0.5rem;
+  display: grid;
+  min-height: 8rem;
+  place-items: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+a.action:hover {
+  border-color: var(--color-accent);
+}
+
+.action-label,
+.action-label-detail {
+  display: block;
+}
+
+.action-label {
+  font-size: 1.25rem;
+}
+
+.action-label-detail {
+  color: var(--color-dim);
+  font-size: 0.9375rem;
+  margin-top: 0.125rem;
+}
+</style>
+{%- endblock %}
+
+{% block body %}
+<div class="block">
+  <p>What do you want to create?</p>
+</div>
+
+<ul class="block actions">
+  <li><a class="action" href="{{ url_for('.create_series_form') }}"><div><span class="action-label">Series</span></div></a></li>
+  <li><a class="action" href="{{ url_for('.create_offline_party_form') }}"><div><span class="action-label">Party</span> <span class="action-label-detail">offline</span></div></a></li>
+  <li><a class="action" href="{{ url_for('.create_online_only_party_form') }}"><div><span class="action-label">Party</span> <span class="action-label-detail">online-only</span></div></a></li>
+</ul>
+{%- endblock %}

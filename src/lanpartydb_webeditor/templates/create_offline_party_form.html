@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% from 'macros/forms.html' import form_field, form_field_check %}
+{% set current_page = 'create_offline_party' %}
+{% set page_title = 'Create offline party file' %}
+{% set back_link = true %}
+
+{% block body %}
+<h1>{{ page_title }}</h1>
+
+<form action="{{ url_for('.create_offline_party') }}" method="post">
+  <div class="block grid-2columns">
+    <div>
+      {{ form_field(form.slug, autofocus='autofocus') }}
+      {{ form_field(form.title) }}
+      {{ form_field(form.series_slug) }}
+      {{ form_field(form.organizer_entity) }}
+
+      <fieldset class="form-control-block">
+        <legend>Date</legend>
+        <div class="form-control-block row">
+          <div class="column--grow">
+            {{ form_field(form.start_on, class='is-wide') }}
+          </div>
+          <div class="column--grow">
+            {{ form_field(form.end_on, class='is-wide') }}
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-control-block">
+        <legend>Size</legend>
+        <div class="form-control-block row">
+          <div class="column--grow">
+            {{ form_field(form.seats) }}
+          </div>
+          <div class="column--grow">
+            {{ form_field(form.attendees) }}
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-control-block">
+        <legend>Location</legend>
+        {{ form_field(form.location_name) }}
+        {{ form_field(form.location_country_code, caption='<a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes">ISO 3166-1 alpha-2</a>, e.g. &quot;de&quot;, &quot;ca&quot'|safe) }}
+        <div class="form-control-block row">
+          <div>
+            {{ form_field(form.location_postal_code, size=5) }}
+          </div>
+          <div class="column--grow">
+            {{ form_field(form.location_city) }}
+          </div>
+        </div>
+        {{ form_field(form.location_street) }}
+        <div class="form-control-block row">
+          <div class="column--grow">
+            {{ form_field(form.location_latitude) }}
+          </div>
+          <div class="column--grow">
+            {{ form_field(form.location_longitude) }}
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-control-block">
+        <legend>Links</legend>
+        {{ form_field(form.website_url) }}
+        {{ form_field_check(form.website_offline) }}
+      </fieldset>
+    </div>
+    <div>
+      <div class="form-control-block output-control">
+        <label class="form-control-label" for="output">Output</label>
+        <textarea class="form-control" style="height: 40rem;" readonly>{{ output }}</textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-row is-hcentered">
+    <button type="submit" class="button color-primary">Preview</button>
+    <button type="submit" formaction="{{ url_for('.create_offline_party', download='true') }}" class="button">Download</button>
+  </div>
+</form>
+{%- endblock %}

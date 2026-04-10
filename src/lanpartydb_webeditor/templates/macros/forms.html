@@ -1,0 +1,88 @@
+{%- macro form_field(field, class='', prefix=None, suffix=None, caption=None) -%}
+  <div class="form-control-block{% if field.errors %} invalid{% endif %}">
+    {{ field.label(class='form-control-label%s'|format(' required' if field.flags.required else '')) }}
+  {%- if prefix is not none or suffix is not none %}
+    <div class="form-control-wrapper">
+    {%- if prefix is not none %}
+    {{ prefix }}
+    {%- endif %}
+  {%- endif %}
+    {{ field(class='form-control ' + class, **kwargs) }}
+  {%- if suffix is not none %}
+    {{ suffix }}
+  {%- endif %}
+  {%- if prefix is not none or suffix is not none %}
+    </div>
+  {%- endif %}
+  {%- if caption is not none %}
+    <div class="form-control-caption">{{ caption }}</div>
+  {%- endif %}
+    {{- form_field_errors(field) -}}
+  </div>
+{%- endmacro %}
+
+
+{%- macro form_field_check(field, label=None) -%}
+  <div class="form-control-block{% if field.errors %} invalid{% endif %}">
+    {%- with label = label if label is not none else field.label.text %}
+    <label class="form-control-check-label">{{- field(**kwargs) }} <span>{{ label }}</span></label>
+    {%- endwith %}
+    {{- form_field_errors(field) -}}
+  </div>
+{%- endmacro %}
+
+
+{%- macro form_field_checkboxes(field) -%}
+  <div class="form-control-block{% if field.errors %} invalid{% endif %}">
+    {{ field.label(class='form-label') }}
+    <div class="form-control-checkboxes">
+      {{- field(**kwargs) }}
+    </div>
+    {{- form_field_errors(field) -}}
+  </div>
+{%- endmacro %}
+
+
+{%- macro form_field_radio(field) -%}
+  <div class="form-control-block{% if field.errors %} invalid{% endif %}">
+    {{ field.label(class='form-label') }}
+    <div class="form-control-radios">
+      {{- field(**kwargs) }}
+    </div>
+    {{- form_field_errors(field) -}}
+  </div>
+{%- endmacro %}
+
+
+{%- macro form_form_errors(form) %}
+  {%- if form.form_errors %}
+  <div class="form-form-errors">
+{{ _errors(form.form_errors) -}}
+  </div>
+  {%- endif %}
+{%- endmacro %}
+
+
+{%- macro form_field_errors(field) %}
+  {{- _errors(field.errors) -}}
+{%- endmacro %}
+
+
+{%- macro _errors(errors) %}
+    {%- if errors %}
+    <ol class="form-errors">
+      {%- for error in errors %}
+      <li><strong>Error:</strong> <span>{{ error }}</span></li>
+      {%- endfor %}
+    </ol>
+    {%- endif -%}
+{%- endmacro %}
+
+
+{% macro form_datalist(id, values) -%}
+  <datalist id="{{ id }}">
+    {%- for value in values %}
+    <option value="{{ value }}">
+    {%- endfor %}
+  </datalist>
+{%- endmacro %}

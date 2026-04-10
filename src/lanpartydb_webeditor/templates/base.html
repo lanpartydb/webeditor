@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page_title|default %}{{ page_title }} &middot; {% endif %}Data File Creator &middot; for the OrgaTalk LAN Party Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+{% block head %}{% endblock %}
+  </head>
+  <body class="site-layout">
+
+    <header class="site-header">
+      <div class="container">
+        <div class="site-title"><a href="{{ url_for('.index') }}">Data File Creator</a></div>
+        <div class="site-subtitle dim">for the <a href="https://lanpartydb.orgatalk.de/">OrgaTalk LAN Party Database</a></div>
+      </div>
+    </header>
+
+    {%- if back_link|default(false, true) %}
+    <section class="site-nav">
+      <div class="container">
+        <nav>
+          <ol>
+            <li><a class="nav-item" href="{{ url_for('.index') }}">&larr; Back</a></li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+    {%- endif %}
+
+    <main class="site-body">
+      <div class="body-section">
+        <div class="container">
+
+{% block body required %}{% endblock %}
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>
+          <p>
+            <a href="https://github.com/lanpartydb/webeditor">Repository</a>
+          </p>
+          <p>
+            An <a href="https://www.orgatalk.de/">OrgaTalk</a> project
+          </p>
+        </small>
+      </div>
+    </footer>
+
+{% block scripts %}{% endblock %}
+
+  </body>
+</html>
