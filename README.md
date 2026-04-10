@@ -4,7 +4,7 @@
 ## Installation
 
 * Install [uv](https://docs.astral.sh/uv/) (if it isn't already installed).
-* Install [just](https://github.com/casey/just) (or look up the actual commands in `./justfile`).
+* Install [just](https://github.com/casey/just) (or look up the actual commands in [`justfile`](./justfile)).
 * Clone repository: `git clone https://github.com/lanpartydb/webeditor.git`
 
 
